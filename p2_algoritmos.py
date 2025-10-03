@@ -36,22 +36,3 @@ def ord_shell(v, inc):
     return vector
 
 
-# Ejemplo de uso y prueba de los algoritmos
-if __name__ == "__main__":
-    # Vector de prueba
-    vector_prueba = [64, 34, 25, 12, 22, 11, 90, 5]
-    print("Vector original:", vector_prueba)
-    
-    # Prueba de ordenación por inserción
-    resultado_insercion = ordenacion_insercion(vector_prueba)
-    print("Ordenación por inserción:", resultado_insercion)
-    
-    # Prueba de ordenación Shell
-    # Vector de incrementos típico (el primero debe ser 1)
-    incrementos = [1, 3, 7]  # Secuencia común
-    
-    resultado_shell = ordenacion_shell(vector_prueba, incrementos)
-    print("Ordenación Shell:", resultado_shell)
-    
-    # Verificación de que el original no se modifica
-    print("Vector original (sin modificar):", vector_prueba)
