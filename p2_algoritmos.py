@@ -35,4 +35,54 @@ def ord_shell(v, inc):
             vector[j] = x
     return vector
 
+#EJERCICIO 2
+# Secuencias de incrementos para Shell
+def secuencia_hibbard(n):
+    sec = []
+    k = 1
+    while True:
+        incremento = 2**k - 1
+        if incremento > n:
+            break
+        sec.append(incremento)
+        k += 1
+    return sec[::-1]  # De mayor a menor
 
+def secuencia_knuth(n):
+    sec = []
+    k = 1
+    while True:
+        incremento = (3**k - 1) // 2
+        if incremento > n:
+            break
+        sec.append(incremento)
+        k += 1
+    return sec[::-1]  # De mayor a menor
+
+def secuencia_sedgewick(n):
+    sec = [1]
+    k = 1
+    while True:
+        # Fórmula: 4^k + 3 * 2^(k-1) + 1
+        incremento = 4**k + 3 * (2**(k-1)) + 1
+        if incremento > n:
+            break
+        sec.append(incremento)
+        k += 1
+    return sec[::-1]  # De mayor a menor
+
+def secuencia_ciura(n):
+    base = [1, 4, 10, 23, 57, 132, 301, 701, 1750]
+    sec = []   
+    for inc in base:
+        if inc <= n:
+            sec.append(inc)
+        else:
+            break
+    if sec and sec[-1] < n:
+        ultimo = sec[-1]
+        while ultimo <= n:
+            ultimo = round(ultimo * 2.25)
+            if ultimo <= n:
+                sec.append(ultimo)  
+    return sec[::-1] 
