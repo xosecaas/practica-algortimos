@@ -1,1 +1,15 @@
+PRÁCTICA 2: VERIFICACIÓN EMPÍRICA DE LA COMPLEJIDAD DE ALGORITMOS DE ORDENACIÓN POR INSERCIÓN Y SHELL
 
+
+Hugo Bouza Fernández, Rafael Casás Lamas y Xosé Castro González
+
+1. Introducción.
+En este informe se presenta la implementación y análisis experimental de los algoritmos de ordenación por inserción y shell.
+El estudio se centra en evaluar el rendimiento de estos dos métodos bajo las distintas configuraciones iniciales que se requieren en el enunciado.
+
+
+2. Ejercicio 1.
+Los dos algoritmos se encuentran implementados en el documento .py adjunto.
+
+3. Ejercicio 2. 
+La comprobación de que los algoritmos funcionan correctamente es la siguiente:
