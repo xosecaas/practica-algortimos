@@ -6,7 +6,12 @@ Hugo Bouza Fernández, Rafael Casás Lamas y Xosé Castro González
 1. Introducción.
 En este informe se presenta la implementación y análisis experimental de los algoritmos de ordenación por inserción y shell.
 El estudio se centra en evaluar el rendimiento de estos dos métodos bajo las distintas configuraciones iniciales que se requieren en el enunciado.
-
+Las pruebas se han realizado en un dispositivo con las siguientes características:
+- Procesador Intel(R) Celeron(R) N4100 CPU @ 1.10 GHz.
+- 4 GB de RAM.
+- Sistema operativo windows 10 64 bits.
+- Versión de Python 3.12.4 (base) (64bits).
+- Las mediciones se hicieron en microsegundos.
 
 2. Ejercicio 1.
 Los dos algoritmos se encuentran implementados en el documento .py adjunto.
