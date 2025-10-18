@@ -21,7 +21,7 @@ def medir_tiempo_algoritmo(algoritmo, inicializar, n):
     
     if t_directo < 1000:    # Umbral de confianza: 1000 microsegundos
         asterisco = True
-        k = 1000    # Número de repeticiones
+        k = 10000    # Número de iteraciones
         
         # Medir K ejecuciones del algoritmo completo
         t1 = microsegundos()
@@ -225,85 +225,88 @@ def print_tabla(titulo, n_values, tiempos, k_exponents, asterisco_list):
     print("-" * (10 + 20 + 42 * len(k_exponents)))
     print()
 
-# --- Ordenación por Inserción ---
-print("=" * 70)
-print("ANÁLISIS DE ORDENACIÓN POR INSERCIÓN (3 TABLAS)")
-print("=" * 70)
-# Mejor Caso (Vector ordenado ascendentemente) -> Complejidad O(n)
-tiempos_asc = []
-asterisco_asc = []
-for n in VECTORES_N:
-    t, asterisco = medir_tiempo_algoritmo(ord_insercion, ascendente, n)
-    tiempos_asc.append(t)
-    asterisco_asc.append(asterisco)
-print_tabla(
-    "** Ordenación Inserción - Ascendente (Mejor Caso: O(n)) **",
-    VECTORES_N,
-    tiempos_asc,
-    [0.8, 1.0, 1.2],
-    asterisco_asc
-)
-# Peor Caso (Vector ordenado descendentemente) -> Complejidad O(n^2)
-tiempos_desc = []
-asterisco_desc = []
-for n in VECTORES_N:
-    t, asterisco = medir_tiempo_algoritmo(ord_insercion, descendente, n)
-    tiempos_desc.append(t)
-    asterisco_desc.append(asterisco)
-print_tabla(
-    "** Ordenación Inserción - Descendente (Peor Caso: O(n^2)) **",
-    VECTORES_N,
-    tiempos_desc,
-    [1.8, 2.0, 2.2],
-    asterisco_desc
-)
-# Caso Promedio (Vector aleatorio) -> Complejidad O(n^2)
-tiempos_aleatorio = []
-asterisco_aleatorio = []
-for n in VECTORES_N:
-    t, asterisco = medir_tiempo_algoritmo(ord_insercion, aleatorio, n)
-    tiempos_aleatorio.append(t)
-    asterisco_aleatorio.append(asterisco)
-
-print_tabla(
-    "** Ordenación Inserción - Aleatorio (Caso Promedio: O(n^2)) **",
-    VECTORES_N,
-    tiempos_aleatorio,
-    [1.8, 2.0, 2.2],
-    asterisco_aleatorio
-)
-
-# --- Ordenación Shell ---
-# Helper para medir Shell Sort, pasando la función de secuencia
-def medir_tiempo_shell(n, inicializar_func, secuencia_func):
-    def shell_sort_wrapper(v):
-        inc = secuencia_func(len(v)) 
-        return ord_shell(v, inc)  
-    return medir_tiempo_algoritmo(shell_sort_wrapper, inicializar_func, n)
-
-print("=" * 70)
-print("ANÁLISIS DE ORDENACIÓN SHELL (4 TABLAS - Vector Aleatorio)")
-print("=" * 70)
-
-SHELL_SECUENCIAS = [
-    ("Hibbard", secuencia_hibbard, [1.4, 1.5, 1.6]),    # O(n^1.5)
-    ("Knuth", secuencia_knuth, [1.2, 1.3, 1.4]),        # O(n log^2 n) ~ O(n^1.3)
-    ("Sedgewick", secuencia_sedgewick, [1.2, 1.33, 1.4]), # O(n^1.33)
-    ("Ciura", secuencia_ciura, [1.2, 1.25, 1.3])       # O(n^1.25)
-]
-
-for nombre, func_secuencia, exponents in SHELL_SECUENCIAS:
-    tiempos = []
-    asterisco_list = []
+# Repetir 3 veces el proceso de cálculo y generación de tablas para tratar de
+# reducir las mediciones anómalas
+for _ in range(3):
+    # --- Ordenación por Inserción ---
+    print("=" * 70)
+    print("ANÁLISIS DE ORDENACIÓN POR INSERCIÓN (3 TABLAS)")
+    print("=" * 70)
+    # Mejor Caso (Vector ordenado ascendentemente) -> Complejidad O(n)
+    tiempos_asc = []
+    asterisco_asc = []
     for n in VECTORES_N:
-        t, asterisco = medir_tiempo_shell(n, aleatorio, func_secuencia)
-        tiempos.append(t)
-        asterisco_list.append(asterisco)
-    
+        t, asterisco = medir_tiempo_algoritmo(ord_insercion, ascendente, n)
+        tiempos_asc.append(t)
+        asterisco_asc.append(asterisco)
     print_tabla(
-        f"** Ordenación Shell - Secuencia {nombre} **",
+        "** Ordenación Inserción - Ascendente (Mejor Caso: O(n)) **",
         VECTORES_N,
-        tiempos,
-        exponents,
-        asterisco_list
+        tiempos_asc,
+        [0.8, 1.0, 1.2],
+        asterisco_asc
     )
+    # Peor Caso (Vector ordenado descendentemente) -> Complejidad O(n^2)
+    tiempos_desc = []
+    asterisco_desc = []
+    for n in VECTORES_N:
+        t, asterisco = medir_tiempo_algoritmo(ord_insercion, descendente, n)
+        tiempos_desc.append(t)
+        asterisco_desc.append(asterisco)
+    print_tabla(
+        "** Ordenación Inserción - Descendente (Peor Caso: O(n^2)) **",
+        VECTORES_N,
+        tiempos_desc,
+        [1.8, 2.0, 2.2],
+        asterisco_desc
+    )
+    # Caso Promedio (Vector aleatorio) -> Complejidad O(n^2)
+    tiempos_aleatorio = []
+    asterisco_aleatorio = []
+    for n in VECTORES_N:
+        t, asterisco = medir_tiempo_algoritmo(ord_insercion, aleatorio, n)
+        tiempos_aleatorio.append(t)
+        asterisco_aleatorio.append(asterisco)
+
+    print_tabla(
+        "** Ordenación Inserción - Aleatorio (Caso Promedio: O(n^2)) **",
+        VECTORES_N,
+        tiempos_aleatorio,
+        [1.8, 2.0, 2.2],
+        asterisco_aleatorio
+    )
+
+    # --- Ordenación Shell ---
+    # Helper para medir Shell Sort, pasando la función de secuencia
+    def medir_tiempo_shell(n, inicializar_func, secuencia_func):
+        def shell_sort_wrapper(v):
+            inc = secuencia_func(len(v)) 
+            return ord_shell(v, inc)  
+        return medir_tiempo_algoritmo(shell_sort_wrapper, inicializar_func, n)
+
+    print("=" * 70)
+    print("ANÁLISIS DE ORDENACIÓN SHELL (4 TABLAS - Vector Aleatorio)")
+    print("=" * 70)
+
+    SHELL_SECUENCIAS = [
+        ("Hibbard", secuencia_hibbard, [1.15, 1.22, 1.30]),    # O(n^1.22)
+        ("Knuth", secuencia_knuth, [1.15, 1.25, 1.35]),        # O(n^1.25)
+        ("Sedgewick", secuencia_sedgewick, [1.05, 1.16, 1.25]), # O(n^1.16) 
+        ("Ciura", secuencia_ciura, [1.10, 1.18, 1.25])       # O(n^1.18)
+    ]
+
+    for nombre, func_secuencia, exponents in SHELL_SECUENCIAS:
+        tiempos = []
+        asterisco_list = []
+        for n in VECTORES_N:
+            t, asterisco = medir_tiempo_shell(n, aleatorio, func_secuencia)
+            tiempos.append(t)
+            asterisco_list.append(asterisco)
+    
+        print_tabla(
+            f"** Ordenación Shell - Secuencia {nombre} **",
+            VECTORES_N,
+            tiempos,
+            exponents,
+            asterisco_list
+        )
