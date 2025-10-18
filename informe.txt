@@ -1,160 +1,164 @@
 PRÁCTICA 2: VERIFICACIÓN EMPÍRICA DE LA COMPLEJIDAD DE ALGORITMOS DE ORDENACIÓN POR INSERCIÓN Y SHELL
 
-
 Hugo Bouza Fernández, Rafael Casás Lamas y Xosé Castro González
 
-1. Introducción.
-En este informe se presenta la implementación y análisis experimental de los algoritmos de ordenación por inserción y shell.
-El estudio se centra en evaluar el rendimiento de estos dos métodos bajo las distintas configuraciones iniciales que se requieren en el enunciado.
+1. Introducción
+En este informe se presenta la implementación y estudio empírico de la complejidad de los algoritmos de ordenación por inserción y shell (secuencias de Hibbard, Knuth, Sedgewick y Ciura).
+El estudio se centra en evaluar el rendimiento de estos dos métodos bajo las distintas configuraciones iniciales que se indican en el enunciado.
 Las pruebas se han realizado en un dispositivo con las siguientes características:
-- Procesador Intel(R) Celeron(R) N4100 CPU @ 1.10 GHz.
-- 4 GB de RAM.
-- Sistema operativo windows 10 64 bits.
-- Versión de Python 3.12.4 (base) (64bits).
-- Las mediciones se hicieron en microsegundos.
+  - Procesador AMD Ryzen 5 3600 6-core Processor 3.59 GHz.
+  - 16 GB de RAM.
+  - Sistema operativo windows 10 64 bits.
+  - Versión de Python 3.13 (64 bits).
+  - Las mediciones se hicieron en microsegundos.
 
-2. Ejercicio 1.
+
+2. Ejercicio 1
 Los dos algoritmos se encuentran implementados en el documento .py adjunto.
 
-3. Ejercicio 2. 
-La comprobación de que los algoritmos funcionan correctamente es la siguiente:
 
---- Ordenación por Inserción (n=11) ---
-
-Vector Ascendente (Mejor Caso):
-  Original: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  ¿Ordenado? True
-
-Vector Descendente (Peor Caso):
-  Original: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-  Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  ¿Ordenado? True
-
-Vector Aleatorio (Caso Promedio):
-  Original: [-8, -5, 7, 0, -4, -9, 8, -4, -11, 6, -1]
-  Ordenado: [-11, -9, -8, -5, -4, -4, -1, 0, 6, 7, 8]
-  ¿Ordenado? True
-
---- Ordenación Shell (n=11) ---
-
- Vector Ascendente:
-  Original: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-  - Secuencia Hibbard: [3, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Knuth: [4, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Sedgewick: [1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Ciura: [4, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-
- Vector Descendente:
-  Original: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-  - Secuencia Hibbard: [3, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Knuth: [4, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Sedgewick: [1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-  - Secuencia Ciura: [4, 1]
-    Vector Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    ¿Ordenado? True
-
- Vector Aleatorio:
-  Original: [-8, -5, 7, 0, -4, -9, 8, -4, -11, 6, -1]
-  - Secuencia Hibbard: [3, 1]
-    Vector Ordenado: [-11, -9, -8, -5, -4, -4, -1, 0, 6, 7, 8]
-    ¿Ordenado? True
-  - Secuencia Knuth: [4, 1]
-    Vector Ordenado: [-11, -9, -8, -5, -4, -4, -1, 0, 6, 7, 8]
-    ¿Ordenado? True
-  - Secuencia Sedgewick: [1]
-    Vector Ordenado: [-11, -9, -8, -5, -4, -4, -1, 0, 6, 7, 8]
-    ¿Ordenado? True
-  - Secuencia Ciura: [4, 1]
-    Vector Ordenado: [-11, -9, -8, -5, -4, -4, -1, 0, 6, 7, 8]
-    ¿Ordenado? True
-
-4. Ejercicio 3.
-A continuación presentamos las tablas de las mediciones de los tiempos de ejecución del algoritmo de ordenación por inserción en los supuestos a,b y c indicados en el enunciado del ejercicio:
-
-A) Mediciones del supuesto en el que el vector está ordenado ascendentemente:
-------------------------------------------------------------------------------------------------------------------------
-** ORDENACIÓN INSERCIÓN - INICIALIZACIÓN ASCENDENTE (MEJOR CASO: O(N)) **
-------------------------------------------------------------------------------------------------------------------------
-n          t(n)                 t(n)/n^0.80                    t(n)/n^1.00                    t(n)/n^1.20
-
-------------------------------------------------------------------------------------------------------------------------   
-500        294.1320             2.03876079                     0.58826400                     0.16973768
-
-1000       967.9670             3.85354604                     0.96796700                     0.24314232
-
-2000       2069.7350            4.73250136                     1.03486750                     0.22629698
-
-4000       2180.0000            2.86291531                     0.54500000                     0.10374914
-
-8000       11736.0000           8.85213669                     1.46700000                     0.24311520
-
-16000      14338.0000           6.21144423                     0.89612500                     0.12928395
-
-32000      31953.0000           7.95044901                     0.99853125                     0.12540985
-
-------------------------------------------------------------------------------------------------------------------------   
-
-B) Mediciones del supuesto en el que el vector está ordenado descendientemente:
-------------------------------------------------------------------------------------------------------------------------
-** ORDENACIÓN INSERCIÓN - INICIALIZACIÓN DESCENDENTE (PEOR CASO: O(N^2)) **
-------------------------------------------------------------------------------------------------------------------------   
-n          t(n)                 t(n)/n^1.80                    t(n)/n^2.00                    t(n)/n^2.20
-
-------------------------------------------------------------------------------------------------------------------------   
-500        91150.0000           1.26360305                     0.36460000                     0.10520168
-
-1000       310492.0000          1.23609092                     0.31049200                     0.07799206
-
-2000       1430423.0000         1.63534916                     0.35760575                     0.07819851
-
-4000       5098320.0000         1.67385990                     0.31864500                     0.06065898
-
-8000       19969553.0000        1.88280944                     0.31202427                     0.05170950
-
-16000      62907559.0000        1.70328321                     0.24573265                     0.03545185
-
-32000      216431194.0000       1.68286739                     0.21135859                     0.02654544
-
-------------------------------------------------------------------------------------------------------------------------   
-
-C) Mediciones del supuesto en el que el vector eesta desordenado:
-------------------------------------------------------------------------------------------------------------------------
-** ORDENACIÓN INSERCIÓN - INICIALIZACIÓN ALEATORIO (CASO PROMEDIO: O(N^2)) **
-------------------------------------------------------------------------------------------------------------------------   
-n          t(n)                 t(n)/n^1.80                    t(n)/n^2.00                    t(n)/n^2.20
-
-------------------------------------------------------------------------------------------------------------------------   
-500        25771.0000           0.35726072                     0.10308400                     0.02974386
-
-1000       100392.0000          0.39966775                     0.10039200                     0.02521733
-
-2000       337115.0000          0.38541098                     0.08427875                     0.01842944
-
-4000       1608805.0000         0.52819638                     0.10055031                     0.01914130
-
-8000       6745292.0000         0.63597315                     0.10539519                     0.01746638
-
-16000      28602062.0000        0.77442859                     0.11172680                     0.01611883
-
-32000      107260120.0000       0.83400435                     0.10474621                     0.01315553
-
-------------------------------------------------------------------------------------------------------------------------   
+3. Ejercicio 2
+La comprobación de que los algoritmos ordenan correctamente se ha implementado en el documento .py con una función test que permite comprobar la ordenación de vectores ascendente, descendente y aleatorio del tamaño deseado.
 
 
-5. Ejercicio 4.
+4. Análisis empírico de la complejidad del algoritmo de ordenación por inserción
+A continuación presentamos las tablas de las mediciones de los tiempos de ejecución del algoritmo de ordenación por inserción en los supuestos indicados en el enunciado del ejercicio junto a sus conclusiones.
+NOTAS:
+  - Para tratar de evitar mediciones anómalas el código repite 3 veces el proceso de cálculo y generación de tablas.
+  - Para valores de n cuyos tiempos medidos son inferiores a 10000 (umbral de confianza) se ha iterado 1000 veces el cálculo a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda.
 
+CASO A) Vector ordenado ascendentemente (Mejor caso):
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - ASCENDENTE (MEJOR CASO: O(N)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^0.80 (Cota subestimada)              t(n)/n^1.00 (Cota ajustada)        t(n)/n^1.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+      *500          51.39800000                             0.35626259                             0.10279600                             0.02966076
+     *1000         111.32800000                             0.44320475                             0.11132800                             0.02796433
+     *2000         211.84500000                             0.48438894                             0.10592250                             0.02316233
+     *4000         421.46800000                             0.55349871                             0.10536700                             0.02005823
+     *8000         847.14700000                             0.63897930                             0.10589338                             0.01754894
+    *16000        1680.09700000                             0.72784411                             0.10500606                             0.01514922
+    *32000        3380.54400000                             0.84113675                             0.10564200                             0.01326804
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se confirma la complejidad teórica de O(n) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.105.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+CASO B) Vector ordenado descendentemente (Peor caso):
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - DESCENDENTE (PEOR CASO: O(N^2)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.80 (Cota subestimada)              t(n)/n^2.00 (Cota ajustada)        t(n)/n^2.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+      *500        9206.92500000                             0.12763465                             0.03682770                             0.01062626
+      1000       38404.00000000                             0.15288908                             0.03840400                             0.00964665
+      2000      157456.00000000                             0.18001356                             0.03936400                             0.00860782
+      4000      638410.00000000                             0.20960020                             0.03990063                             0.00759570
+      8000     2583066.00000000                             0.24354181                             0.04036041                             0.00668864
+     16000    10260643.00000000                             0.27781687                             0.04008064                             0.00578243
+     32000    40888723.00000000                             0.31793152                             0.03993039                             0.00501503
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se confirma la complejidad teórica de O(n^2) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^2.00). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.040.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+CASO C) Vector aleatorio (Caso promedio):
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - ALEATORIO (CASO PROMEDIO: O(N^2)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.80 (Cota subestimada)              t(n)/n^2.00 (Cota ajustada)        t(n)/n^2.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+      *500        4923.62400000                             0.06825569                             0.01969450                             0.00568265
+      1000       21705.00000000                             0.08640916                             0.02170500                             0.00545205
+      2000       83613.00000000                             0.09559162                             0.02090325                             0.00457096
+      4000      333858.00000000                             0.10961091                             0.02086612                             0.00397219
+      8000     1308259.00000000                             0.12334790                             0.02044155                             0.00338763
+     16000     5269655.00000000                             0.14268102                             0.02058459                             0.00296974
+     32000    22102705.00000000                             0.17186026                             0.02158467                             0.00271091
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se confirma la complejidad teórica de O(n^2) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^2.00). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.020.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+
+5. Análisis empírico de la complejidad del algoritmo de ordenación por shell
+A continuación presentamos las tablas de las mediciones de los tiempos de ejecución del algoritmo de ordenación por shell en los supuestos indicados en el enunciado del ejercicio junto a sus conclusiones.
+NOTAS:
+  - Para tratar de evitar mediciones anómalas el código repite 3 veces el proceso de cálculo y generación de tablas.
+  - Para valores de n cuyos tiempos medidos son inferiores a 10000 (umbral de confianza) se ha iterado 1000 veces el cálculo a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda.
+
+CASO A) Secuencia de incrementos de Hibbard:
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - ALEATORIO (CASO PROMEDIO: O(N^2)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.80 (Cota subestimada)              t(n)/n^2.00 (Cota ajustada)        t(n)/n^2.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+       500        4617.00000000                             0.06400499                             0.01846800                             0.00532876
+      1000       20781.00000000                             0.08273065                             0.02078100                             0.00521995
+      2000       86400.00000000                             0.09877789                             0.02160000                             0.00472332
+      4000      340221.00000000                             0.11169999                             0.02126381                             0.00404789
+      8000     1304313.00000000                             0.12297585                             0.02037989                             0.00337741
+     16000     5202316.00000000                             0.14085775                             0.02032155                             0.00293179
+     32000    21109995.00000000                             0.16414141                             0.02061523                             0.00258916
+------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+Se confirma la complejidad teórica de O(n^2) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^2.00). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.020.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+CASO B) Secuencia de incrementos de Knuth:
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN SHELL - SECUENCIA KNUTH **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.15 (Cota subestimada)              t(n)/n^1.20 (Cota ajustada)        t(n)/n^1.30 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+      *500         532.96500000                             0.41964609                             0.30756342                             0.16521051
+     *1000        1278.65500000                             0.45368391                             0.32118361                             0.16097313
+     *2000        3038.90600000                             0.48588419                             0.33226246                             0.15537397
+     *4000        7075.99300000                             0.50982180                             0.33675605                             0.14692964
+      8000       16296.00000000                             0.52908754                             0.33757714                             0.13742446
+     16000       37984.00000000                             0.55572856                             0.34249696                             0.13009024
+     32000       93470.00000000                             0.61623983                             0.36685316                             0.13001015
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.20) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^1.20). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.33.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+CASO C) Secuencia de incrementos de Sedgewick:
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - ALEATORIO (CASO PROMEDIO: O(N^2)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.80 (Cota subestimada)              t(n)/n^2.00 (Cota ajustada)        t(n)/n^2.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+       500        4617.00000000                             0.06400499                             0.01846800                             0.00532876
+      1000       20781.00000000                             0.08273065                             0.02078100                             0.00521995
+      2000       86400.00000000                             0.09877789                             0.02160000                             0.00472332
+      4000      340221.00000000                             0.11169999                             0.02126381                             0.00404789
+      8000     1304313.00000000                             0.12297585                             0.02037989                             0.00337741
+     16000     5202316.00000000                             0.14085775                             0.02032155                             0.00293179
+     32000    21109995.00000000                             0.16414141                             0.02061523                             0.00258916
+------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+Se confirma la complejidad teórica de O(n^2) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^2.00). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.020.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+CASO D) Secuencia de incrementos de Ciura:
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** ORDENACIÓN INSERCIÓN - ALEATORIO (CASO PROMEDIO: O(N^2)) **
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+         n                 t(n)          t(n)/n^1.80 (Cota subestimada)              t(n)/n^2.00 (Cota ajustada)        t(n)/n^2.20 (Cota sobre-estimada)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+       500        4617.00000000                             0.06400499                             0.01846800                             0.00532876
+      1000       20781.00000000                             0.08273065                             0.02078100                             0.00521995
+      2000       86400.00000000                             0.09877789                             0.02160000                             0.00472332
+      4000      340221.00000000                             0.11169999                             0.02126381                             0.00404789
+      8000     1304313.00000000                             0.12297585                             0.02037989                             0.00337741
+     16000     5202316.00000000                             0.14085775                             0.02032155                             0.00293179
+     32000    21109995.00000000                             0.16414141                             0.02061523                             0.00258916
+------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+Se confirma la complejidad teórica de O(n^2) de forma empírica a través del análisis de la columna de la cota ajustada (t(n)/n^2.00). 
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.020.
+Los valores de la cota subestimada van en orden creciente y los de la cota sobre-estimada en orden decreciente sin excepción, por lo que no existen mediciones anómalas.
+
+
+6. Conclusión
