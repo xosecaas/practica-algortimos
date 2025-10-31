@@ -1,1 +1,16 @@
+PRÁCTICA 3: VERIFICACIÓN EMPÍRICA DE LA COMPLEJIDAD DEL ALGORITMO QUICKSORT
 
+Hugo Bouza Fernández, Rafael Casás Lamas y Xosé Castro González
+
+1. Introducción
+En este informe se presentan las implementaciones de algoritmos QUICKSORT y de ordenacion por inserción auxiliar.
+Además se reutiliza código de la práctica 2 para hacer las mediciones haciendo las correcciones indicadas por el profesor en su corrección.
+Para finalizar se hace un analisis de los tiempos obtenidos y se hace una comparación con los tiempos obtenidos en la anterior practica.
+Las pruebas se han realizado en un dispositivo con las siguientes características:
+  - Procesador AMD Ryzen 5 3600 6-core Processor 3.59 GHz.
+  - 16 GB de RAM.
+  - Sistema operativo windows 10 64 bits.
+  - Versión de Python 3.13 (64 bits).
+  - Las mediciones se hicieron en microsegundos.
+
+2. 
