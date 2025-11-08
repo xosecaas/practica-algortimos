@@ -47,6 +47,18 @@ def medir_tiempo_algoritmo(algoritmo, inicializar, n):
     else:
         return t_directo, asterisco
 
+# Inicialización de vectores
+def aleatorio(n):
+    v = list(range(n))
+    for i in range(n):
+        v[i] = random.randint(-n, n)
+    return v
+
+def ascendente(n):
+    return list(range(1, n+1)) 
+
+def descendente(n):
+    return list(range(n, 0, -1))
 
 # ALGORITMO ORDENACIÓN POR INSTERCIÓN
 def ord_insercion(v):
@@ -60,7 +72,7 @@ def ord_insercion(v):
         v[j + 1] = x
 
 
-# EJERCICIOS 1 Y 2
+# EJERCICIO 1
 def mediana3(v, i, j):
     k = (i + j) // 2
     if v[k] > v[j]:
@@ -76,15 +88,12 @@ def ord_rapida_aux(v, izq, der, umbral):
         pivote = v[izq]
         i = izq
         j = der
-        while True:
+        while j > i:
             i += 1
             while v[i] < pivote:
                 i += 1
-            j -= 1
             while v[j] > pivote: 
                 j -= 1   
-            if j <= i:
-                break
             v[i], v[j] = v[j], v[i] # Intercambiar elementos
         v[i], v[j] = v[j], v[i] # Deshacer el último intercambio
         v[izq], v[j] = v[j], v[izq] # Colocar el pivote en su posición correcta
@@ -98,16 +107,109 @@ def ord_rapida(v, umbral):
         ord_insercion(v)
 
 
-# EJERCICIO 3
-# Inicialización de vectores
-def aleatorio(n):
-    v = list(range(n))
-    for i in range(n):
-        v[i] = random.randint(-n, n)
-    return v
+# EJERCICIOS 2 y 3
+def test_ord_rapida(tipo_vector, tamaño, umbral):
+    # Crear el vector según el tipo
+    if tipo_vector == "ascendente":
+        v = ascendente(tamaño)
+    elif tipo_vector == "descendente":
+        v = descendente(tamaño)
+    elif tipo_vector == "aleatorio":
+        v = aleatorio(tamaño)
+    else:
+        print("Tipo de vector no válido")
+        return False
+    v_copia = v.copy() # Hacer copia para verificación
+    print(f"Configuración: {tipo_vector}, tamaño={tamaño}, umbral={umbral}")
+    print(f"Vector original: {v}")
+    ord_rapida(v, umbral) # Ejecutar ordenación
+    correcto = v == sorted(v_copia) # Verificar resultado
+    print(f"Vector ordenado: {v}")
+    print(f"¿Ordenado? {correcto}")
+    print()
 
-def ascendente(n):
-    return list(range(1, n+1)) 
+test_ord_rapida("aleatorio",10,1)
+test_ord_rapida("ascendente",15,1)
+test_ord_rapida("descendente",20,1)
 
-def descendente(n):
-    return list(range(n, 0, -1))
+
+# EJERCICIOS 4 Y 5
+def print_tabla(titulo, n_values, tiempos, k_exponents, asterisco_list):      
+    # Ajuste de ancho de columna para hacerla más estrecha
+    col_n = 8
+    col_t = 16
+    col_r = 40
+    # Definir nombres para las cotas
+    cotas = ["(Cota subestimada)", "(Cota justa)", "(Cota sobre-estimada)"]
+    header_str = f"{"n":>{col_n}} {"t(n)":>{col_t}}"
+    # Construir cabecera de las cotas: t/n^k (Nombre de cota)
+    for i, k in enumerate(k_exponents):
+        cota_label = f"t/n^{k:.2f} {cotas[i] if i < len(cotas) else ''}"
+        header_str += f" {cota_label:>{col_r}}"
+    total_width = col_n + col_t + (col_r * len(k_exponents)) + 10
+    line_separator = "-" * total_width
+    print(line_separator)
+    print(f"{titulo.upper()}")
+    print(line_separator)
+    print(header_str)
+    print(line_separator)
+    # Imprimir filas de datos
+    for i, n in enumerate(n_values):
+        t = tiempos[i]
+        asterisco = asterisco_list[i]
+        n_str = f"*{n}" if asterisco else str(n)
+        line = f"{n_str:>{col_n}} {t:>{col_t}.8f}"
+        for k in k_exponents:
+            ratio = t / (n**k) if n > 0 else 0
+            line += f" {ratio:>{col_r}.8f}"
+        print(line)
+    print(line_separator)
+    print()
+
+# Tamaños de vector para el análisis
+VECTORES_N = [500, 1000, 2000, 4000, 8000, 16000, 32000] 
+UMBRALES = [1, 10, 100]
+
+# Definición de los escenarios y las cotas de complejidad esperadas
+escenarios = [
+    ("Aleatorio", aleatorio, [1.05, 1.15, 1.25]),
+    ("Ascendente", ascendente, [1.5, 1.7, 2.0]), 
+    ("Descendente", descendente, [1.5, 1.7, 2.0])]
+
+# Wrapper para medir Quicksort con un umbral fijo
+def medir_t_quicksort(n, inicializar_func, umbral):
+    def quicksort_wrapper(v):
+        ord_rapida(v, umbral) 
+    return medir_tiempo_algoritmo(quicksort_wrapper, inicializar_func, n)
+
+
+print("=" * 120)
+print("INICIO DEL ANÁLISIS EMPÍRICO (EJERCICIOS 4 Y 5)")
+print("Se generarán 9 tablas de complejidad")
+print("=" * 120)
+
+for umbral in UMBRALES:
+    print("-" * 120)
+    print(f"** ANÁLISIS DE ORDENACIÓN RÁPIDA - UMBRAL = {umbral} **")
+    print("-" * 120)
+    for nombre_escenario, func_inicializar, exponentes in escenarios:
+        tiempos = []
+        asterisco_list = []
+        # Medir para todos los valores de N
+        for n in VECTORES_N:
+            # Repetir 3 veces la medición para un resultado más robusto
+            t_total = 0
+            for _ in range(3):
+                t, asterisco = medir_t_quicksort(n, func_inicializar, umbral)
+                t_total += t
+            t_avg = t_total / 3
+            
+            tiempos.append(t_avg)
+            asterisco_list.append(asterisco) 
+        # Generar Tabla
+        print_tabla(
+            f"**Ordenación Rápida - {nombre_escenario} (Umbral = {umbral})**",
+            VECTORES_N,
+            tiempos,
+            exponentes,
+            asterisco_list)
