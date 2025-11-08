@@ -13,4 +13,43 @@ Las pruebas se han realizado en un dispositivo con las siguientes característic
   - Versión de Python 3.13 (64 bits).
   - Las mediciones se hicieron en microsegundos.
 
-2. 
+2. Implementación de los algoritmos requeridos(quicksort e inserción).
+En este ejercicio implementamos primero el algoritmo de inserción se encuentra implementado primero
+y a continuacióin está implementado el quisort mediana de tres y luego el aleatorio.
+Estos se pueden ver en el archivo .py adjunto.
+
+3. Comprobación de los algoritmos en umbral 1.
+
+Configuración: aleatorio, tamaño=10, umbral=1
+Vector original: [6, 7, -6, 1, -7, 7, -6, 0, 9, -5]
+Vector ordenado: [-7, -6, -6, -5, 0, 1, 6, 7, 7, 9]
+¿Ordenado? True
+
+Configuración: ascendente, tamaño=15, umbral=1
+Vector original: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+Vector ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+¿Ordenado? True
+
+Configuración: descendente, tamaño=20, umbral=1
+Vector original: [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+Vector ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+¿Ordenado? True
+
+4. Hacemos la comparación de tiempos entre los umbrales anteriores.
+Aleatorio:
+El umbral óptimo según nuestros resultados es el de umbral 1  y 10 con muy poca diferencia en tiempos,
+siendo el 1 mejor para menos numero de valores y el 10 mejor para un mayor numero de valores.
+
+Vector Ascendente:
+
+El umbral óptimo varía (1, 10 o 100).
+Sin embargo a diferencia es menor que en el caso aleatorio.
+Razón: La selección del pivote por Mediana de 3 es el factor dominante,ya que mitiga fuertemente el peor caso O(n^2). 
+
+El mejor umbral es el que equilibra la sobrecarga de llamadas recursivas y la Inserción final.
+
+5. Cálculo empírico de las complejidades.
+
+
+6. Comparación de los resultados con los de la práctica anterior
+
