@@ -5,7 +5,7 @@
 import random
 import time
 
-# MEDICIÓN DE TIEMPO
+# Medición de tiempo
 def microsegundos():
     return time.perf_counter_ns() // 1000
 
@@ -47,6 +47,12 @@ def medir_tiempo_algoritmo(algoritmo, inicializar, n):
     else:
         return t_directo, asterisco
 
+# Wrapper para medir Quicksort con un umbral fijo
+def medir_t_quicksort(n, inicializar_func, umbral):
+    def quicksort_wrapper(v):
+        ord_rapida(v, umbral) 
+    return medir_tiempo_algoritmo(quicksort_wrapper, inicializar_func, n)
+
 # Inicialización de vectores
 def aleatorio(n):
     v = list(range(n))
@@ -60,7 +66,7 @@ def ascendente(n):
 def descendente(n):
     return list(range(n, 0, -1))
 
-# ALGORITMO ORDENACIÓN POR INSTERCIÓN
+# Algoritmo ordenación por inserción
 def ord_insercion(v):
     n = len(v)
     for i in range(1, n):
@@ -129,8 +135,8 @@ def test_ord_rapida(tipo_vector, tamaño, umbral):
     print()
 
 test_ord_rapida("aleatorio",10,1)
-test_ord_rapida("ascendente",15,1)
-test_ord_rapida("descendente",20,1)
+test_ord_rapida("ascendente",15,10)
+test_ord_rapida("descendente",20,100)
 
 
 # EJERCICIOS 4 Y 5
@@ -138,7 +144,7 @@ def print_tabla(titulo, n_values, tiempos, k_exponents, asterisco_list):
     # Ajuste de ancho de columna para hacerla más estrecha
     col_n = 8
     col_t = 16
-    col_r = 40
+    col_r = 35
     # Definir nombres para las cotas
     cotas = ["(Cota subestimada)", "(Cota justa)", "(Cota sobre-estimada)"]
     header_str = f"{"n":>{col_n}} {"t(n)":>{col_t}}"
@@ -168,48 +174,53 @@ def print_tabla(titulo, n_values, tiempos, k_exponents, asterisco_list):
 
 # Tamaños de vector para el análisis
 VECTORES_N = [500, 1000, 2000, 4000, 8000, 16000, 32000] 
+
+# Parámetros para escenarios
 UMBRALES = [1, 10, 100]
+ESCENARIOS = [
+    ("Aleatorio", aleatorio),
+    ("Ascendente", ascendente), 
+    ("Descendente", descendente)]
+COTAS_POR_ESCENARIO = {
+    ("Aleatorio", 1): [1.05, 1.10, 1.15],
+    ("Aleatorio", 10): [1.07, 1.12, 1.17], 
+    ("Aleatorio", 100): [1.03, 1.08, 1.13],
+    ("Ascendente", 1): [1.03, 1.08, 1.13],
+    ("Ascendente", 10): [1.07, 1.12, 1.17],
+    ("Ascendente", 100): [1.09, 1.14, 1.21],
+    ("Descendente", 1): [1.03, 1.08, 1.13],
+    ("Descendente", 10): [1.07, 1.12, 1.17],
+    ("Descendente", 100): [1.09, 1.14, 1.21]}
 
-# Definición de los escenarios y las cotas de complejidad esperadas
-escenarios = [
-    ("Aleatorio", aleatorio, [1.05, 1.15, 1.25]),
-    ("Ascendente", ascendente, [1.5, 1.7, 2.0]), 
-    ("Descendente", descendente, [1.5, 1.7, 2.0])]
-
-# Wrapper para medir Quicksort con un umbral fijo
-def medir_t_quicksort(n, inicializar_func, umbral):
-    def quicksort_wrapper(v):
-        ord_rapida(v, umbral) 
-    return medir_tiempo_algoritmo(quicksort_wrapper, inicializar_func, n)
-
-
-print("=" * 120)
-print("INICIO DEL ANÁLISIS EMPÍRICO (EJERCICIOS 4 Y 5)")
-print("Se generarán 9 tablas de complejidad")
-print("=" * 120)
-
+# Imprimir escenarios
 for umbral in UMBRALES:
     print("-" * 120)
     print(f"** ANÁLISIS DE ORDENACIÓN RÁPIDA - UMBRAL = {umbral} **")
     print("-" * 120)
-    for nombre_escenario, func_inicializar, exponentes in escenarios:
+    for nombre_escenario, func_inicializar in ESCENARIOS:
         tiempos = []
         asterisco_list = []
+        # Obtener las cotas específicas para este escenario y umbral
+        exponentes = COTAS_POR_ESCENARIO.get((nombre_escenario, umbral))
         # Medir para todos los valores de N
         for n in VECTORES_N:
             # Repetir 3 veces la medición para un resultado más robusto
             t_total = 0
+            asterisco_count = 0
             for _ in range(3):
                 t, asterisco = medir_t_quicksort(n, func_inicializar, umbral)
                 t_total += t
+                if asterisco:
+                    asterisco_count += 1
             t_avg = t_total / 3
-            
             tiempos.append(t_avg)
-            asterisco_list.append(asterisco) 
+            # Considerar asterisco si al menos 2 de 3 mediciones lo requieren
+            asterisco_list.append(asterisco_count >= 2) 
+
         # Generar Tabla
         print_tabla(
             f"**Ordenación Rápida - {nombre_escenario} (Umbral = {umbral})**",
             VECTORES_N,
             tiempos,
-            exponentes,
+            exponentes,  # ← Usar las cotas específicas
             asterisco_list)
