@@ -23,6 +23,8 @@ Estos se pueden ver en el archivo .py adjunto.
 
 
 3. EJERCICIOS 2 Y 3: Comprobación de la implementación en múltiples situaciones
+Se comprueba el correcto funcionamiento de la implementación, primero con umbral 1 y luego en
+distintas situaciones configurables.
 Ejemplos:
 Configuración: aleatorio, tamaño=10, umbral=1
 Vector original: [2, -9, -3, 1, 6, 8, 10, 7, 2, -2]
@@ -41,7 +43,7 @@ Vector ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 
 
 4. EJERCICIO 4: Comparación de tiempos entre los umbrales 1-10-100
-(Los resultados se han deducido a partir de las tablas del ejercicio 5)
+NOTA: Los resultados se han deducido a partir de los tiempos representados en las tablas del ejercicio 5.
 Vector aleatorio:
 El umbral óptimo bajo nuestros resultados es el de umbral 1, obteniendo unos tiempos ligeramente menores que los
 obtenidos con umbral 10 y siendo mucho peores los de umbral 100. Esto se debe a que no se recurre a inserción en
@@ -58,24 +60,71 @@ ya ordenados, teniendo una complejidad teórica en el mejor caso de O(n).
 
 
 5. EJERCICIO 5: Cálculo empírico de las complejidades
-A continuación presentamos las tablas de las mediciones de los tiempos de ejecución del algoritmo de ordenación por shell en los supuestos indicados en el enunciado del ejercicio junto a sus conclusiones.
+A continuación se presentan las tablas de las mediciones de los tiempos de ejecución del algoritmo de ordenación 
+quicksort en los supuestos indicados en el enunciado del ejercicio junto a sus conclusiones.
 NOTAS:
-  - Para tratar de evitar mediciones anómalas el código repite 3 veces el proceso de cálculo y generación de tablas.
-  - Para valores de n cuyos tiempos medidos son inferiores a 1000 (umbral de confianza) se ha iterado 10000 veces el cálculo a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda.
+  - Para tratar de evitar mediciones anómalas el código repite 3 veces el proceso de cálculo y posteriormente genera las tablas.
+  - Para valores de n cuyos tiempos medidos son inferiores a 1000 (umbral de confianza) se ha iterado 10000 veces el cálculo 
+    a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda.
 A) Vector aleatorio
 A.1) Umbral 1
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 A.2) Umbral 10
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 A.3) Umbral 100
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 
 B) Vector ascendente
 B.1) Umbral 1
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 B.2) Umbral 10
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 B.3) Umbral 100
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 
 C) Vector descendente
 C.1) Umbral 1
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 C.2) Umbral 10
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 C.3) Umbral 100
+
+Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante x.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
 
 
 6. EJERCICIO 6: Comparación de los resultados con los de la práctica anterior
