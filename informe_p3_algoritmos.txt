@@ -45,18 +45,17 @@ Vector ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 4. EJERCICIO 4: Comparación de tiempos entre los umbrales 1-10-100
 NOTA: Los resultados se han deducido a partir de los tiempos representados en las tablas del ejercicio 5.
 Vector aleatorio:
-El umbral óptimo bajo nuestros resultados es el de umbral 1, obteniendo unos tiempos ligeramente menores que los
-obtenidos con umbral 10 y siendo mucho peores los de umbral 100. Esto se debe a que no se recurre a inserción en
-umbral 1, por lo que quicksort ordena más rapido los vectores aleatorios que inserción (quicksort tiene una complejidad
-teórica promedio de O(nlogn), frente a O(n^2) que tiene teóricamente inserción).
+El umbral óptimo bajo nuestros resultados es el de umbral 10, obteniendo unos tiempos ligeramente menores que los
+obtenidos con umbral 1 y siendo mucho peores los de umbral 100. Esto se debe a que existe un balance bastante bueno
+entre quicksort e inserción.
 
 Vector ascendente:
-El umbral óptimo obtenido es el umbral 100, lo cual tiene sentido, ya que inserción es más rapida en vectores
-ya ordenados, teniendo una complejidad teórica en el mejor caso de O(n).
+El umbral óptimo obtenido es el umbral 100, lo cual tiene sentido, ya que la mediana de 3 es bastante mala para
+vectores ya ordenados, por lo que cuanto antes se aplique inserción mejor.
 
 Vector descendente:
-El umbral óptimo obtenido es el umbral 100, lo cual tiene sentido, ya que inserción es más rapida en vectores
-ya ordenados, teniendo una complejidad teórica en el mejor caso de O(n).
+El umbral óptimo obtenido es el umbral 100, lo cual tiene sentido, ya que la mediana de 3 es bastante mala para
+vectores ya ordenados, por lo que cuanto antes se aplique inserción mejor.
 
 
 5. EJERCICIO 5: Cálculo empírico de las complejidades
@@ -68,63 +67,171 @@ NOTAS:
     a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda.
 A) Vector aleatorio
 A.1) Umbral 1
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ALEATORIO (UMBRAL = 1)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.05 (Cota subestimada)               t/n^1.10 (Cota justa)      t/n^1.15 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     432.82183333                          0.63444015                          0.46498844                          0.34079535
+   *1000     919.30450000                          0.65081775                          0.46074368                          0.32618155
+    2000    1973.33333333                          0.67471281                          0.46138923                          0.31551205
+    4000    4377.33333333                          0.72284741                          0.47746729                          0.31538471
+    8000    9189.33333333                          0.73289122                          0.46761132                          0.29835308
+   16000   19490.66666667                          0.75075929                          0.46269490                          0.28516007
+   32000   41027.66666667                          0.76325444                          0.45437229                          0.27049195
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.10) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.46.
 Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+por lo que no existen mediciones anómalas.
 A.2) Umbral 10
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ALEATORIO (UMBRAL = 10)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.07 (Cota subestimada)               t/n^1.12 (Cota justa)      t/n^1.17 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     363.77206667                          0.47090298                          0.34513018                          0.25294986
+   *1000     794.94266667                          0.49015768                          0.34700506                          0.24566077
+    2000    1780.66666667                          0.52297452                          0.35762596                          0.24455556
+    4000    3780.33333333                          0.52884196                          0.34931956                          0.23073842
+    8000    8042.33333333                          0.53589016                          0.34191746                          0.21815581
+   16000   17047.33333333                          0.54106329                          0.33345872                          0.20551147
+   32000   36560.66666667                          0.55271803                          0.32903806                          0.19587934
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.12) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.34.
 Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+por lo que no existen mediciones anómalas.
 A.3) Umbral 100
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
-Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ALEATORIO (UMBRAL = 100)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.03 (Cota subestimada)               t/n^1.08 (Cota justa)      t/n^1.13 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     842.85200000                          1.39898229                          1.02533012                          0.75147618
+    1000    1748.00000000                          1.42082774                          1.00586901                          0.71210073
+    2000    3920.00000000                          1.56036130                          1.06702273                          0.72966274
+    4000    7994.33333333                          1.55833370                          1.02933671                          0.67991475
+    8000   15479.66666667                          1.47767497                          0.94281052                          0.60154749
+   16000   33370.00000000                          1.55995699                          0.96140555                          0.59251674
+   32000   72421.66666667                          1.65792178                          0.98697588                          0.58755569
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.08) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 1.00.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente
+si descartamos n=2000,por lo que solo existe una medición anómala que se descarta.
 
 B) Vector ascendente
 B.1) Umbral 1
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
-Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ASCENDENTE (UMBRAL = 1)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.03 (Cota subestimada)               t/n^1.08 (Cota justa)      t/n^1.13 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     291.97910000                          0.48463264                          0.35519281                          0.26032487
+   *1000     625.98006667                          0.50881570                          0.36021393                          0.25501193
+    2000    1313.00000000                          0.52264143                          0.35739818                          0.24439979
+    4000    2786.33333333                          0.54313936                          0.35876352                          0.23697650
+    8000    6169.66666667                          0.58895080                          0.37577209                          0.23975629
+   16000   12392.33333333                          0.57930797                          0.35702901                          0.22003791
+   32000   25984.66666667                          0.59485713                          0.35412385                          0.21081314
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.08) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.35.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente
+excepto para n=8000, por lo que solo existe una medición anómala que se descarta.
 B.2) Umbral 10
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
-Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ASCENDENTE (UMBRAL = 10)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.07 (Cota subestimada)               t/n^1.12 (Cota justa)      t/n^1.17 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     198.02686667                          0.25634580                          0.18787877                          0.13769850
+   *1000     436.58063333                          0.26919344                          0.19057436                          0.13491631
+   *2000     952.20460000                          0.27965860                          0.19123910                          0.13077514
+    4000    2063.33333333                          0.28864577                          0.19066115                          0.12593870
+    8000    4498.00000000                          0.29971823                          0.19123116                          0.12201246
+   16000    9324.00000000                          0.29593333                          0.18238448                          0.11240403
+   32000   19612.00000000                          0.29649093                          0.17650374                          0.10507428
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.12) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.19.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente
+si descartamos n=8000, por lo que solo existe una medición anómala que se descarta.
 B.3) Umbral 100
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
-Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - ASCENDENTE (UMBRAL = 100)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.09 (Cota subestimada)               t/n^1.14 (Cota justa)      t/n^1.21 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     107.01706667                          0.12234205                          0.08966588                          0.05803625
+   *1000     256.93870000                          0.13798425                          0.09768537                          0.06043231
+   *2000     596.95163333                          0.15059704                          0.10298286                          0.06029129
+    4000    1339.33333333                          0.15872425                          0.10484320                          0.05896730
+    8000    3111.66666667                          0.17323075                          0.11052753                          0.05861884
+   16000    6682.00000000                          0.17474940                          0.10769851                          0.05469168
+   32000   14462.33333333                          0.17767441                          0.10577119                          0.05116900
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.14) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.10.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente
+si descartamos n=500, por lo que solo existe una medición anómala que se descarta.
 
 C) Vector descendente
 C.1) Umbral 1
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - DESCENDENTE (UMBRAL = 1)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.03 (Cota subestimada)               t/n^1.08 (Cota justa)      t/n^1.13 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     307.67986667                          0.51069308                          0.37429280                          0.27432348
+   *1000     660.37580000                          0.53677360                          0.38000661                          0.26902408
+    2000    1399.33333333                          0.55700653                          0.38089808                          0.26046974
+    4000    2954.66666667                          0.57595254                          0.38043784                          0.25129318
+    8000    6323.33333333                          0.60361968                          0.38513137                          0.24572786
+   16000   13055.00000000                          0.61028584                          0.37612075                          0.23180420
+   32000   26901.66666667                          0.61584966                          0.36662089                          0.21825274
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.08) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.38.
 Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+por lo que no existen mediciones anómalas.
 C.2) Umbral 10
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - DESCENDENTE (UMBRAL = 10)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.07 (Cota subestimada)               t/n^1.12 (Cota justa)      t/n^1.17 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     211.34590000                          0.27358729                          0.20051526                          0.14695993
+   *1000     464.71286667                          0.28653963                          0.20285452                          0.14361000
+    2000    1008.00000000                          0.29604548                          0.20244494                          0.13843804
+    4000    2167.66666667                          0.30324127                          0.20030201                          0.13230684
+    8000    4754.00000000                          0.31677645                          0.20211493                          0.12895669
+   16000    9773.33333333                          0.31019467                          0.19117378                          0.11782090
+   32000   20763.33333333                          0.31389659                          0.18686549                          0.11124272
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.12) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.20.
 Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+si descartamos n=8000, por lo que solo existe una medición anómala que se descarta.
 C.3) Umbral 100
-
-Se obtiene la complejidad de O(x) de forma empírica a través del análisis de la columna de la cota ajustada.
-Se observa que la sucesión de la cota ajustada tiende a la constante x.
-Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
-por lo que solo existe una medición anómala que se descarta.
+-------------------------------------------------------------------------------------------------------------------------------------------
+**ORDENACIÓN RÁPIDA - DESCENDENTE (UMBRAL = 100)**
+-------------------------------------------------------------------------------------------------------------------------------------------
+       n             t(n)         t/n^1.09 (Cota subestimada)               t/n^1.14 (Cota justa)      t/n^1.21 (Cota sobre-estimada)
+-------------------------------------------------------------------------------------------------------------------------------------------
+    *500     126.46873333                          0.14457922                          0.10596376                          0.06858505
+   *1000     294.99846667                          0.15842356                          0.11215529                          0.06915439
+   *2000     672.52816667                          0.16966325                          0.11602091                          0.06814974
+    4000    1485.66666667                          0.17606620                          0.11629820                          0.06507719
+    8000    3375.33333333                          0.18590943                          0.11989307                          0.06391132
+   16000    7083.66666667                          0.18725389                          0.11417245                          0.05797930
+   32000   15316.00000000                          0.18816198                          0.11201454                          0.05418934
+-------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.14) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante 0.11.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente
+si descartamos n=500, por lo que solo existe una medición anómala que se descarta.
 
 
 6. EJERCICIO 6: Comparación de los resultados con los de la práctica anterior
@@ -137,4 +244,4 @@ en cambio con umbral 100, shell es más rápido para tamaños de vector menores 
 Como conclusión, hemos demostrado que quicksort es mejor que shell en casi la totalidad de los casos. Además, por los
 resultados del apartado 4, podemos deducir que la mejor configuración si queremos equilibrar los resultados va a ser
 la de umbral 10, ya que umbral 1 es mala para vectores ordenados y umbral 100 es demasiado mala para vectores aleatorios,
-por lo que en promedio umbral 10 tiene una buena media, aunque umbral 1 también podría ser viable.
+por lo que en promedio umbral 10 tiene una buena media, aunque umbral 1 también podría llegar a ser viable.
