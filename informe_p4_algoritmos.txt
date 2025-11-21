@@ -1,0 +1,24 @@
+PRÁCTICA 4: DICCIONARIO DE DATOS
+
+Hugo Bouza Fernández, Rafael Casás Lamas y Xosé Castro González
+
+1. Introducción
+En esta practica se constuye un programa de consulta de sinónimos que se implementa y se valida mediante el ejemplo dado.
+Además se calculan e indican el numero de colisiones producidas al insertar el archivo .txt proporcionado y se calcula la 
+complejidad computacional de cada un de los cuatro diccionarios y finalmente se realiza una comparación de los resultados.
+Las pruebas se han realizado en un dispositivo con las siguientes características:
+  - Procesador AMD Ryzen 5 3600 6-core Processor 3.59 GHz.
+  - 16 GB de RAM.
+  - Sistema operativo windows 10 64 bits.
+  - Versión de Python 3.13 (64 bits).
+  - Las mediciones se hicieron en microsegundos.
+
+
+
+2. Implementación de las clases de los diccionarios.
+En el codigo que se presenta en el archivo adjunto p4_algoritmos.py se procedió a la implementación de las clases requeridas
+junto con los métodos que se piden.
+
+
+3. Validacion mediante funcion de dispersión.
+
