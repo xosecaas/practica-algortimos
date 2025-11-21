@@ -1,3 +1,3 @@
 # practica-algortimos
 
-https://prod.liveshare.vsengsaas.visualstudio.com/join?BE8EB8DBDB85701E3F937AF05EB476B0400D
+https://prod.liveshare.vsengsaas.visualstudio.com/join?6FBCDFBA66A607EDA9BB6855CAF55C97C149
