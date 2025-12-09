@@ -119,11 +119,48 @@ No encuentro: CARLOS, colisiones: 5
 4. EJERCICIO 3: Cálculo de colisiones
 Se calcula el número total de colisiones producidas al insertar todos los datos en sinonimos.txt. Estos son los resultados 
 obtenidos:
+*** TablaAbierta dispersionA
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 1188662
+
+*** TablaAbierta dispersionB
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 11879
+
+*** TablaCerrada dispersionA exploracion_lineal
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 172623183
+
+*** TablaCerrada dispersionB exploracion_lineal
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 15190
+
+*** TablaCerrada dispersionA exploracion_cuadratica
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 2106581
+
+*** TablaCerrada dispersionB exploracion_cuadratica
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 12166
+
+*** TablaCerrada dispersionA exploracion_doble
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 1451531
+
+*** TablaCerrada dispersionB exploracion_doble
+Insertando 19062 elementos... Elementos insertados: 19062
+Número total de colisiones: 17900
 
 
-
-5. EJERCICIO 4:
-
+5. EJERCICIO 4: Cálculo empírico de las complejidades
+A continuación se presentan las tablas de las mediciones de los tiempos de ejecución de la búsqueda de n elementos,
+en cada uno de los cuatro diccionarios y con cada una de las dos funciones de dispersión junto a sus conclusiones.
+NOTAS:
+  - Para tratar de evitar mediciones anómalas el código repite 3 veces el proceso de cálculo y posteriormente genera 
+    las tablas usando valores promedios.
+  - Para valores de n cuyos tiempos medidos son inferiores a 1000 (umbral de confianza) se ha iterado 1000 veces el 
+    cálculo a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda
+    si en al menos dos de las tres mediciones tomadas se realiza este proceso.
 
 
 6. EJERCICIO 5: Comparación de resultados
@@ -131,3 +168,4 @@ obtenidos:
 
 
 7. Conclusión
+
