@@ -285,6 +285,7 @@ for nombre, tipo, tam, disp, resol, cotas in configuraciones:
             elementos_insertados += 1
     print(f"Elementos insertados: {elementos_insertados}")
     print(f"Número total de colisiones: {colisiones_totales}")
+    # Resultados para ejercicio 4
     resultados_insertar[nombre] = {
         'tabla': tabla,
         'colisiones_totales': colisiones_totales,
@@ -328,42 +329,56 @@ for config in configuraciones:
     for n in n_values:
         if n > len(datos):
             break
-        # Seleccionar n claves al azar
-        claves_a_buscar = random.sample(datos, n)
         
-        # Medición de tiempo
-        t_directo = microsegundos()
-        colisiones_n = buscar_n_elementos(tabla, claves_a_buscar)
-        t_directo = microsegundos() - t_directo
-        asterisco = False
-        tiempo_final = t_directo
-        if t_directo < 1000:  # Umbral de confianza
-            asterisco = True
-            k = 10000  # Número de iteraciones
-            # Medir K ejecuciones completas
-            t1 = microsegundos()
-            for _ in range(k):
-                buscar_n_elementos(tabla, claves_a_buscar)
-            t2 = microsegundos()
-            t_total = t2 - t1
-            tiempo_final = t_total / k
-        tiempos.append(tiempo_final)
-        colisiones_totales_busqueda.append(colisiones_n)
-        asterisco_list.append(asterisco)
+        # Repetir 3 veces la medición para un resultado más robusto
+        t_total = 0
+        colisiones_total = 0
+        asterisco_count = 0
+        for repeticion in range(3):
+            # Seleccionar nuevas claves aleatorias en cada repetición
+            claves_a_buscar = random.sample(datos, n)
+
+            # Medición de tiempo
+            t_directo = microsegundos()
+            colisiones_n = buscar_n_elementos(tabla, claves_a_buscar)
+            t_directo = microsegundos() - t_directo
+            if t_directo < 1000:  # Umbral de confianza
+                asterisco_count += 1
+                k = 1000  # Número de iteraciones
+                # Medir K ejecuciones completas
+                t1 = microsegundos()
+                for _ in range(k):
+                    # Usar una nueva muestra en cada iteración
+                    claves_iteracion = random.sample(datos, n)
+                    buscar_n_elementos(tabla, claves_iteracion)
+                t2 = microsegundos()
+                t_total_rep = t2 - t1
+                t_directo = t_total_rep / k
+            t_total += t_directo
+            colisiones_total += colisiones_n
+        
+        # Promediar resultados
+        t_avg = t_total / 3
+        colisiones_avg = colisiones_total / 3
+        tiempos.append(t_avg)
+        colisiones_totales_busqueda.append(colisiones_avg)
+        # Considerar asterisco si al menos 2 de 3 mediciones lo requieren
+        asterisco_list.append(asterisco_count >= 2)
         
         # Calcular ratios
-        t = tiempo_final
+        t = t_avg
         ratios = []
         for cota in cotas_tabla:
             ratio = t / (n ** cota) if n > 0 else 0
             ratios.append(ratio)
         
         # Imprimir fila
-        n_str = f"*{n}" if asterisco else str(n)
+        n_str = f"*{n}" if asterisco_list[-1] else str(n)
         fila = f"{n_str:>8} {t:>14.4f}"
         for ratio in ratios:
             fila += f" {ratio:>15.8f}"
-        fila += f" {colisiones_n:>14}"
+        # Mostrar colisiones promedio como entero
+        fila += f" {int(round(colisiones_avg)):>14}"
         print(fila)
     
     print("-" * (8 + 14 + 15 * len(cotas_tabla) + 14 + 10))
