@@ -85,7 +85,7 @@ class TablaAbierta:
         print("}")
 
 # Tablas de dispersión cerrada 
-# (factor de carga aproximado de  λ = 0,5 (N = 38197)
+# (factor de carga aproximado de  λ = 0,5 (N = 38197))
 def exploracion_lineal(pos_ini: int, intento: int)-> int:
     return pos_ini + intento
 
@@ -246,19 +246,19 @@ datos = leer_sinonimos()
 configuraciones = [
     # (Nombre, Tipo, Tamaño, Dispersión, Resolución, [Cota1, Cota2, Cota3])
     ("TablaAbierta dispersionA", "abierta", 
-     19069, dispersionA, None, [0.8, 1.0, 1.2]),
+     19069, dispersionA, None, [0.9, 1.0, 1.1]),
     ("TablaAbierta dispersionB", "abierta", 
-     19069, dispersionB, None, [0.7, 1.0, 1.3]),
+     19069, dispersionB, None, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionA exploracion_lineal", "cerrada", 
      38197, dispersionA, exploracion_lineal, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionB exploracion_lineal", "cerrada", 
-     38197, dispersionB, exploracion_lineal, [0.8, 1.0, 1.2]),
+     38197, dispersionB, exploracion_lineal, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionA exploracion_cuadratica", "cerrada", 
-     38197, dispersionA, exploracion_cuadratica, [0.6, 1.0, 1.4]),
+     38197, dispersionA, exploracion_cuadratica, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionB exploracion_cuadratica", "cerrada", 
-     38197, dispersionB, exploracion_cuadratica, [0.7, 1.0, 1.3]),
+     38197, dispersionB, exploracion_cuadratica, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionA exploracion_doble", "cerrada", 
-     38197, dispersionA, exploracion_doble, [0.8, 1.0, 1.2]),
+     38197, dispersionA, exploracion_doble, [0.9, 1.0, 1.1]),
     ("TablaCerrada dispersionB exploracion_doble", "cerrada", 
      38197, dispersionB, exploracion_doble, [0.9, 1.0, 1.1]),]
 
@@ -299,6 +299,12 @@ print("=" * 60)
 # Tamaños para el análisis
 n_values = [125, 250, 500, 1000, 2000, 4000, 8000, 16000]
 
+# Definir nombres para las cotas
+cota_nombres = {
+    0.9: " (Cota subestimada)",
+    1.0: " (Cota ajustada)",
+    1.1: " (Cota sobre-estimada)"}
+
 for config in configuraciones:
     nombre, tipo, tam, disp, resol, cotas = config
     print(f"\n*** {nombre}")
@@ -310,10 +316,11 @@ for config in configuraciones:
     # Construir cabecera dinámica basada en las cotas
     header = f"{'n':>8} {'t(n)':>14}"
     for cota in cotas_tabla:
-        header += f" {'t(n)/n^' + str(cota):>15}"
+        cota_nombre = cota_nombres.get(cota, f"")
+        header += f" {'t(n)/n^' + str(cota) + cota_nombre:>35}"
     header += f" {'Colisiones':>14}"
     print(header)
-    print("-" * (8 + 14 + 15 * len(cotas_tabla) + 14 + 10))
+    print("-" * (8 + 14 + 35 * len(cotas_tabla) + 14 + 10))
     tiempos = []
     colisiones_totales_busqueda = []
     asterisco_list = []
@@ -376,9 +383,10 @@ for config in configuraciones:
         n_str = f"*{n}" if asterisco_list[-1] else str(n)
         fila = f"{n_str:>8} {t:>14.4f}"
         for ratio in ratios:
-            fila += f" {ratio:>15.8f}"
+            fila += f" {ratio:>35.8f}"
         # Mostrar colisiones promedio como entero
         fila += f" {int(round(colisiones_avg)):>14}"
         print(fila)
     
-    print("-" * (8 + 14 + 15 * len(cotas_tabla) + 14 + 10))
+    print("-" * (8 + 14 + 35 * len(cotas_tabla) + 14 + 10))
+    
