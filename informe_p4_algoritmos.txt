@@ -161,8 +161,154 @@ NOTAS:
   - Para valores de n cuyos tiempos medidos son inferiores a 1000 (umbral de confianza) se ha iterado 1000 veces el 
     cálculo a fin de reducir la tasa de error. Estos valores se resaltan en las tablas con un asterisco a la izquierda
     si en al menos dos de las tres mediciones tomadas se realiza este proceso.
+*** TablaAbierta dispersionA
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    *125       712.2930                          9.23505879                          5.69834400                          3.51607121           8065
+    *250      1013.8840                          7.04437167                          4.05553600                          2.33482460          15927
+     500      1896.6667                          7.06184218                          3.79333333                          2.03762381          31263
+    1000      3678.0000                          7.33857479                          3.67800000                          1.84336665          60554
+    2000      7406.6667                          7.91946427                          3.70333333                          1.73176838         123900
+    4000     15264.3333                          8.74628952                          3.81608333                          1.66499085         250237
+    8000     29839.6667                          9.16247872                          3.72995833                          1.51843072         493661
+   16000     61160.6667                         10.06385165                          3.82254167                          1.45191178         996305
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 3.799.
+Los valores de la cota subestimada van en orden creciente excepto para n=125 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaAbierta dispersionB
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    *125       161.3560                          2.09202133                          1.29084800                          0.79649693             79
+    *250       309.0047                          2.14693566                          1.23601867                          0.71159195            146
+    *500       634.4933                          2.36240340                          1.26898667                          0.68164783            325
+    1000      1148.3333                          2.29122623                          1.14833333                          0.57553001            605
+    2000      2183.3333                          2.33449554                          1.09166667                          0.51048978           1290
+    4000      4465.3333                          2.55858525                          1.11633333                          0.48706609           2539
+    8000      8365.6667                          2.56873656                          1.04570833                          0.42569796           5023
+   16000     15947.6667                          2.62415308                          0.99672917                          0.37858654           9969
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 1.132.
+Los valores de la cota subestimada van en orden creciente excepto para n=500 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaCerrada dispersionA exploracion_lineal
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+     125    205895.0000                       2669.48071981                       1647.16000000                       1016.35349732        1136168
+     250    422375.3333                       2934.62450505                       1689.50133333                        972.66779802        2301551
+     500    828621.6667                       3085.19970434                       1657.24333333                        890.20346463        4520470
+    1000   1614005.0000                       3220.36335267                       1614.00500000                        808.91870101        8965949
+    2000   3222361.6667                       3445.46058769                       1611.18083333                        753.42718677       18115552
+    4000   6436529.6667                       3688.05834622                       1609.13241667                        702.07867970       36108695
+    8000  12933396.3333                       3971.28996237                       1616.67454167                        658.13289849       72683519
+   16000  25917702.0000                       4264.70021125                       1619.85637500                        615.26825935      145011940
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 1633.094.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente,
+por lo que no existen mediciones anómalas.
+
+*** TablaCerrada dispersionB exploracion_lineal
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    *125       205.5083                          2.66446749                          1.64406667                          1.01444481            101
+    *250       409.6953                          2.84652505                          1.63878133                          0.94346764            184
+    *500       813.5350                          3.02902765                          1.62707000                          0.87399558            413
+    1000      1460.0000                          2.91308298                          1.46000000                          0.73173336            801
+    2000      2902.6667                          3.10363163                          1.45133333                          0.67867862           1572
+    4000      5565.6667                          3.18906374                          1.39141667                          0.60708738           3174
+    8000     11016.3333                          3.38264234                          1.37704167                          0.56058062           6369
+   16000     21426.6667                          3.52571034                          1.33916667                          0.50865420          12646
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 1.472.
+Los valores de la cota subestimada van en orden creciente excepto para n=500 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaCerrada dispersionA exploracion_cuadratica
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+     125      3935.3333                         51.02259141                         31.48266667                         19.42587142          13650
+     250      6334.6667                         44.01267443                         25.33866667                         14.58779856          27184
+     500     12444.0000                         46.33263486                         24.88800000                         13.36881759          55964
+    1000     24781.6667                         49.44592560                         24.78166667                         12.42025496         112923
+    2000     47416.0000                         50.69882779                         23.70800000                         11.08643510         219756
+    4000     98442.6667                         56.40652917                         24.61066667                         10.73785114         441537
+    8000    200484.6667                         61.56022160                         25.06058333                         10.20192619         884738
+   16000    379414.0000                         62.43172971                         23.71337500                          9.00702506        1765684
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 24.586.
+Los valores de la cota subestimada van en orden creciente excepto para n=125 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaCerrada dispersionB exploracion_cuadratica
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    *125       192.7333                          2.49883638                          1.54186667                          0.95138395             93
+    *250       376.4263                          2.61537513                          1.50570533                          0.86685406            171
+    *500       754.2060                          2.80812851                          1.50841200                          0.81025735            312
+    1000      1251.3333                          2.49673824                          1.25133333                          0.62715229            621
+    2000      2709.3333                          2.89691294                          1.35466667                          0.63347495           1292
+    4000      5397.0000                          3.09241966                          1.34925000                          0.58868969           2598
+    8000     10500.6667                          3.22430327                          1.31258333                          0.53434025           5088
+   16000     20066.0000                          3.30181566                          1.25412500                          0.47635291          10240
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 1.404.
+Los valores de la cota subestimada van en orden creciente excepto para n=1000 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaCerrada dispersionA exploracion_doble
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+     125      3726.0000                         48.30853183                         29.80800000                         18.39254538           9656
+     250      5224.6667                         36.30049773                         20.89866667                         12.03163305          18011
+     500     10847.3333                         40.38778002                         21.69466667                         11.65348929          38544
+    1000     20527.0000                         40.95674954                         20.52700000                         10.38787034          74350
+    2000     44151.0000                         47.20777682                         22.07550000                         10.32303855         151785
+    4000     83141.6667                         47.63923007                         20.78541667                          9.06886080         305979
+    8000    166439.0000                         51.10626111                         20.80487500                          8.46946762         612090
+   16000    334514.3333                         55.04358944                         20.90714583                          7.94113813        1220215
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 21.099.
+Los valores de la cota subestimada van en orden creciente excepto para n=125 y los de la sobre-estimada en orden decreciente,
+por lo que solo existe una medición anómala que se descarta.
+
+*** TablaCerrada dispersionB exploracion_doble
+       n           t(n)       t(n)/n^0.9 (Cota subestimada)          t(n)/n^1.0 (Cota ajustada)    t(n)/n^1.1 (Cota sobre-estimada)     Colisiones
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+    *125       211.0037                          2.73571587                          1.68802933                          1.04157126            116
+    *250       426.0227                          2.95996584                          1.70409067                          0.98106707            256
+    *500       845.5500                          3.11822882                          1.69110000                          0.90838988            461
+    1000      1353.3333                          2.70025500                          1.35333333                          0.67827339            917
+    2000      2911.0000                          3.14254192                          1.45550000                          0.68062706           1864
+    4000      5993.6667                          3.43430288                          1.49841667                          0.65377242           3745
+    8000     11787.3333                          3.61938329                          1.47341667                          0.59981397           7373
+   16000     22547.0000                          3.71005870                          1.40918750                          0.53525013          14990
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Se obtiene la complejidad de O(n^1.0) de forma empírica a través del análisis de la columna de la cota ajustada.
+Se observa que la sucesión de la cota ajustada tiende a la constante media 1.560.
+Los valores de la cota subestimada van en orden creciente y los de la sobre-estimada en orden decreciente excepto para n=1000,
+por lo que solo existe una medición anómala que se descarta.
+
+Como podemos observar, se obtiene una complejidad de O(n) en todos los casos. Esto se debe a que en todas las combinaciones 
+de funciones de dispersión y diccionarios, el tiempo de una operación de búsqueda es constante, es decir O(1), entonces
+la búsqueda de n elementos tiene lógicamente complejidad O(n).
 
 
 6. EJERCICIO 5: Comparación de resultados y conclusión final
+A partir de los resultados obtenidos en el ejercicio anterior, observamos que la función de dispersión B da mejores resultados
+que la A, ya que es más rápida buscando elementos y produce menos colisiones. Además, la tabla de dispersión abierta es el 
+diccionario de datos que mejores resultados ha dado en cuanto a velocidad y colisiones. Por otra parte, dentro de las tablas 
+de dispersión cerradas el mejor método de exploración ha sido la cuadrática con dispersión B.
+
+En conclusión, la peor opción de todas de lejos es usar la función de dispersión A junto a exploración lineal en tabla cerrada
+y la mejor opción es usar la función de dispersión B en tabla abierta.
 
 
